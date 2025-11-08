@@ -23,7 +23,7 @@ struct Fenwick {
         // get largest power of two <= n
         int pw = 1;
         while (pw << 1 <= n) pw <<= 1;
-        
+
         for (int step = pw; step > 0; step >>= 1) {
             if (pos + step <= n && bit[pos + step] < k) {
                 k -= bit[pos + step];
@@ -32,6 +32,17 @@ struct Fenwick {
         }
         return pos + 1; // 1-based index
     }
+
+    int find_kth_by_binary_search(int k) {
+    int l = 1, r = n;
+    while (l < r) {
+        int m = (l + r) >> 1;
+        if (sum(m) >= k) r = m;
+        else l = m + 1;
+    }
+    return l; // smallest pos with sum(pos) >= k
+}
+
 };
 
 int main() {
@@ -49,7 +60,7 @@ int main() {
 
     for (int i = 1; i <= n; ++i) {
         int k = p[i];
-        int pos = fw.find_kth(k);     // original index of k-th alive
+        int pos = fw.find_kth_by_binary_search(k);     // original index of k-th alive
         cout << a[pos] << (i==n?'\n':' ');
         fw.add(pos, -1);              // remove it
     }
