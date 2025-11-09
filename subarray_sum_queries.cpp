@@ -1,3 +1,6 @@
+
+//After each update, print the maximum subarray sum. Empty subarrays (with sum 0) are allowed.
+
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
